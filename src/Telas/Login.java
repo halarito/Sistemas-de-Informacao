@@ -215,13 +215,13 @@ public class Login extends javax.swing.JFrame {
                 Principal pagina = new Principal("",1);
                 pagina.setVisible(true);
                 this.dispose();
-//JOptionPane.showMessageDialog(rootPane, "Insira o usuario e a senha respectivamente, por favor!"); 
+
             }
             else{
                 rs = pst.executeQuery();
                 
                 if(rs.next()){
-                    //JOptionPane.showMessageDialog(rootPane, "Entrou");
+                   
                     Principal pagina = new Principal("",1);
                     pagina.setVisible(true);
                     this.dispose();

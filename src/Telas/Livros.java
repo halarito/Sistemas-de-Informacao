@@ -77,7 +77,7 @@ public class Livros extends javax.swing.JInternalFrame {
     }
     
     void preencher(){
-        //int completar = tblProductos.getSelectedRow();
+        
         String completar = "select id, autor, titulo from livros";
         
         try {

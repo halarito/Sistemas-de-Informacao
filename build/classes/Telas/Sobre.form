@@ -115,7 +115,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" pref="24" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane2" pref="116" max="32767" attributes="0"/>
+                  <Component id="jScrollPane2" pref="115" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -144,9 +144,9 @@
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Arial" size="14" style="0"/>
+                  <Font name="Arial" size="18" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="O ISPT - Instituto Superior Polit&#xe9;cnico de Tete, &#xe9; uma Institui&#xe7;&#xe3;o de &#xa;  "/>
+                <Property name="text" type="java.lang.String" value="O Polit&#xe9;cnico de Tete &#xe9; uma Institui&#xe7;&#xe3;o de &#xe2;mbito Central com Sede na Cidade de Tete, com a miss&#xe3;o de promover o desenvolvimento econ&#xf3;mico e social das comunidades locais, da regi&#xe3;o e do pa&#xed;s. "/>
               </Properties>
             </Component>
           </SubComponents>

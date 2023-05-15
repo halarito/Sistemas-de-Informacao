@@ -34,18 +34,8 @@ public class Principal extends javax.swing.JFrame {
     public Principal(String nome, int perfil) {
         initComponents();
         
-        jLabel11.setText(nome);
-        System.out.println(perfil);
-        if(perfil == 2){
-            jButton2.setEnabled(false);
-            jButton4.setEnabled(false);
-            //jButton6.setEnabled(false);
-        }
-        else if(perfil == 1){
-            
-        }
         conexao = Classes.Modulo.conector();
-        //System.out.println(conexao);
+        
         Date dataSistema = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         jLabel8.setText(formato.format(dataSistema));
@@ -55,9 +45,6 @@ public class Principal extends javax.swing.JFrame {
        
     }
 
-    
-    
-    
     private Principal() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -203,7 +190,6 @@ public class Principal extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(153, 153, 153));
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 153, 102));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ícones/basket.png"))); // NOI18N
         jButton1.setText("PRATILEIRA - DEVOLVER");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -214,7 +200,6 @@ public class Principal extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(153, 153, 153));
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton2.setForeground(new java.awt.Color(0, 153, 102));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ícones/drive.png"))); // NOI18N
         jButton2.setText("SOBRE");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -225,7 +210,6 @@ public class Principal extends javax.swing.JFrame {
         jButton3.setBackground(new java.awt.Color(153, 153, 153));
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton3.setForeground(new java.awt.Color(0, 153, 102));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ícones/chart_bar.png"))); // NOI18N
         jButton3.setText("FUNCIONARIOS");
         jButton3.setActionCommand("LIVROS");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -237,7 +221,6 @@ public class Principal extends javax.swing.JFrame {
         jButton4.setBackground(new java.awt.Color(153, 153, 153));
         jButton4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton4.setForeground(new java.awt.Color(0, 153, 102));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ícones/user_green.png"))); // NOI18N
         jButton4.setText("PRATILEIRA - LEVANTAR");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -248,7 +231,6 @@ public class Principal extends javax.swing.JFrame {
         jButton5.setBackground(new java.awt.Color(153, 153, 153));
         jButton5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton5.setForeground(new java.awt.Color(0, 153, 102));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ícones/cog.png"))); // NOI18N
         jButton5.setText("LIVROS");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -307,18 +289,14 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        
-        Pratileira_Dev comprar = new Pratileira_Dev();
-        painel2.add(comprar);
-        comprar.setVisible(true);
+        // TODO add your handling code here:       
+        Pratileira_Dev dev = new Pratileira_Dev();
+        painel2.add(dev);
+        dev.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        //Equipamento registo = new Equipamento();
-        //painel2.add(registo);
-        //registo.setVisible(true);
         Sobre sobre = new Sobre();
         painel2.add(sobre);
         sobre.setVisible(true);
@@ -327,10 +305,6 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        /*Pratileira_Lev stock = new Pratileira_Lev();
-        painel2.add(stock);
-        stock.setVisible(true);*/
-        
         Funcionarios fun = new Funcionarios();
         painel2.add(fun);
         fun.setVisible(true);
@@ -339,10 +313,6 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        /*Funcionarios fun = new Funcionarios();
-        painel2.add(fun);
-        fun.setVisible(true);*/
-        
         Pratileira_Lev stock = new Pratileira_Lev();
         painel2.add(stock);
         stock.setVisible(true);
@@ -350,9 +320,6 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        //Serviços serv = new Serviços();
-        //painel2.add(serv);
-        //serv.setVisible(true);
         Livros livro = new Livros();
         painel2.add(livro);
         livro.setVisible(true);

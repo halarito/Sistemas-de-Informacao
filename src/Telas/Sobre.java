@@ -70,8 +70,8 @@ public class Sobre extends javax.swing.JInternalFrame {
         jLabel2.setText("A Instutuição");
 
         jTextPane1.setEditable(false);
-        jTextPane1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jTextPane1.setText("O ISPT - Instituto Superior Politécnico de Tete, é uma Instituição de \n  ");
+        jTextPane1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jTextPane1.setText("O Politécnico de Tete é uma Instituição de âmbito Central com Sede na Cidade de Tete, com a missão de promover o desenvolvimento económico e social das comunidades locais, da região e do país. ");
         jScrollPane1.setViewportView(jTextPane1);
 
         jLabel3.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
@@ -109,7 +109,7 @@ public class Sobre extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

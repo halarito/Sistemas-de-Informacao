@@ -35,125 +35,114 @@ public class Pratileira_Dev extends javax.swing.JInternalFrame {
 
     public String devolver;
     public String quantidade;
-    
-    void aumentar(int id){
-        
+
+    void aumentar(int id) {
+
         String cmdSelect = "select quantidade from livros where id = ?";
-        
+
         String cmdUpdate = "update livros set quantidade = ? where id = ?";
-        
-        try{
+
+        try {
             pst = conexao.prepareStatement(cmdSelect);
             pst.setString(1, String.valueOf(id));
-            
+
             System.out.println(id);
-            
+
             rs = pst.executeQuery();
-            
-            if(rs.next()){
+
+            if (rs.next()) {
                 quantidade = rs.getString("quantidade");
-           
-            } else{
+
+            } else {
                 System.out.println("Sem Quant");
             }
-            
-        } catch (Exception e){
+
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e);
         }
-        
-        try{
+
+        try {
             pst = conexao.prepareStatement(cmdUpdate);
             int quantidadeNova = Integer.parseInt(quantidade) + 1;
             pst.setString(1, String.valueOf(quantidadeNova));
             pst.setString(2, String.valueOf(id));
-            
+
             pst.executeUpdate();
-            
-            
-        } catch(Exception e){
-            
-                JOptionPane.showMessageDialog(rootPane, e);
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(rootPane, e);
         }
-        
-    
+
     }
-    
-    
-    
-    void devolver(){
-        
+
+    void devolver() {
+
         String stm = "delete from levantar where id = ?";
-        
+
         int tab = tblLivros.getSelectedRow();
         int id = Integer.parseInt(tblLivros.getModel().getValueAt(tab, 0).toString());
         int id1 = Integer.parseInt(tblLivros.getModel().getValueAt(tab, 1).toString());
-        
-        try{
-            
+
+        try {
+
             pst = conexao.prepareStatement(stm);
             pst.setString(1, String.valueOf(id));
-            
+
             int per = JOptionPane.showConfirmDialog(rootPane, "Devolver Livro?", "Confirme", JOptionPane.YES_NO_OPTION);
-        
-            if(per == JOptionPane.YES_OPTION){
+
+            if (per == JOptionPane.YES_OPTION) {
                 int actua = pst.executeUpdate();
-                
-                if(actua > 0){
+
+                if (actua > 0) {
                     JOptionPane.showMessageDialog(rootPane, "Livro devolvido com sucesso!");
-                    
+
                     aumentar(id1);
-            
+
                 }
             }
-        } catch (ArrayIndexOutOfBoundsException ex){
-                    JOptionPane.showMessageDialog(rootPane, "Selecione o livro por devolver na tabela");
-        } catch (Exception e){
-            
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione o livro por devolver na tabela");
+        } catch (Exception e) {
+
             JOptionPane.showMessageDialog(rootPane, e);
-            
+
         }
     }
-    
-    
 
-    
     void preencher() {
-        
-        
-    //String sql = "Select l.id as ID, li.id as ID_do_livro, l.nome, li.autor, li.titulo from levantar l inner join livros li on l.id_livro = li.id inner join controle c on c.id_livro = l.id_livro where c.nrLev > 0 ";
-    String sql = "Select l.id as ID, l.id_livro as ID_do_Livro, li.titulo, l.nome, l.perfil, l.contacto from levantar l inner join livros li on li.id = l.id_livro";
 
-    try {
-        pst = conexao.prepareStatement(sql);
-            
-        rs = pst.executeQuery();
+        String sql = "Select l.id as ID, l.id_livro as ID_do_Livro, li.titulo, l.nome, l.perfil, l.contacto from levantar l inner join livros li on li.id = l.id_livro";
 
-        tblLivros.setModel(DbUtils.resultSetToTableModel(rs));
+        try {
+            pst = conexao.prepareStatement(sql);
+
+            rs = pst.executeQuery();
+
+            tblLivros.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e);
         }
     }
-    
+
     void preencherC() {
-        
-    String c = cbCurso.getSelectedItem().toString();
-        
-    //String sql = "Select l.id, l.nome, li.autor, li.titulo from levantar l inner join livros li on l.id_livro = li.id where li.curso = ?";
-    String sql = "Select l.id as ID, l.id_livro as ID_do_Livro, li.titulo, l.nome, l.perfil, l.contacto from levantar l inner join livros li on li.id = l.id_livro where l.curso = ?";
 
-    try {
-        pst = conexao.prepareStatement(sql);
-            
-        pst.setString(1, c);
-            
-        rs = pst.executeQuery();
+        String c = cbCurso.getSelectedItem().toString();
+        String sql = "Select l.id as ID, l.id_livro as ID_do_Livro, li.titulo, l.nome, l.perfil, l.contacto from levantar l inner join livros li on li.id = l.id_livro where l.curso = ?";
 
-        tblLivros.setModel(DbUtils.resultSetToTableModel(rs));
+        try {
+            pst = conexao.prepareStatement(sql);
+
+            pst.setString(1, c);
+
+            rs = pst.executeQuery();
+
+            tblLivros.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e);
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -325,7 +314,6 @@ public class Pratileira_Dev extends javax.swing.JInternalFrame {
         preencher();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbCurso;
