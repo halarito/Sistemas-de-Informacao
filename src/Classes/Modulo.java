@@ -9,7 +9,7 @@ public class Modulo {
         java.sql.Connection conexao = null;
         
         String driver = "com.mysql.jdbc.Driver";
-        String url = "jdbc:mysql://localhost:3306/SV_Sistema_de_Inf";
+        String url = "jdbc:mysql://localhost:3306/livraria";
         
         String user = "root";
         String pass = "";

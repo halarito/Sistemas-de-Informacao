@@ -1,0 +1,341 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Telas;
+
+import java.sql.*;
+import net.proteanit.sql.DbUtils;
+import Classes.Modulo;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author PAULINHA
+ */
+public class Pratileira_Dev extends javax.swing.JInternalFrame {
+
+    /**
+     * Creates new form Pratileira_Dev
+     */
+    Connection conexao = null;
+    PreparedStatement pst = null;
+    PreparedStatement pst1 = null;
+    PreparedStatement pst2 = null;
+    ResultSet rs = null;
+    ResultSet rs1 = null;
+    ResultSet rs2 = null;
+
+    public Pratileira_Dev() {
+        initComponents();
+        conexao = Modulo.conector();
+        preencher();
+    }
+
+    public String devolver;
+    public String quantidade;
+    
+    void aumentar(int id){
+        
+        String cmdSelect = "select quantidade from livros where id = ?";
+        
+        String cmdUpdate = "update livros set quantidade = ? where id = ?";
+        
+        try{
+            pst = conexao.prepareStatement(cmdSelect);
+            pst.setString(1, String.valueOf(id));
+            
+            System.out.println(id);
+            
+            rs = pst.executeQuery();
+            
+            if(rs.next()){
+                quantidade = rs.getString("quantidade");
+           
+            } else{
+                System.out.println("Sem Quant");
+            }
+            
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(rootPane, e);
+        }
+        
+        try{
+            pst = conexao.prepareStatement(cmdUpdate);
+            int quantidadeNova = Integer.parseInt(quantidade) + 1;
+            pst.setString(1, String.valueOf(quantidadeNova));
+            pst.setString(2, String.valueOf(id));
+            
+            pst.executeUpdate();
+            
+            
+        } catch(Exception e){
+            
+                JOptionPane.showMessageDialog(rootPane, e);
+        }
+        
+    
+    }
+    
+    
+    
+    void devolver(){
+        
+        String stm = "delete from levantar where id = ?";
+        
+        int tab = tblLivros.getSelectedRow();
+        int id = Integer.parseInt(tblLivros.getModel().getValueAt(tab, 0).toString());
+        int id1 = Integer.parseInt(tblLivros.getModel().getValueAt(tab, 1).toString());
+        
+        try{
+            
+            pst = conexao.prepareStatement(stm);
+            pst.setString(1, String.valueOf(id));
+            
+            int per = JOptionPane.showConfirmDialog(rootPane, "Devolver Livro?", "Confirme", JOptionPane.YES_NO_OPTION);
+        
+            if(per == JOptionPane.YES_OPTION){
+                int actua = pst.executeUpdate();
+                
+                if(actua > 0){
+                    JOptionPane.showMessageDialog(rootPane, "Livro devolvido com sucesso!");
+                    
+                    aumentar(id1);
+            
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException ex){
+                    JOptionPane.showMessageDialog(rootPane, "Selecione o livro por devolver na tabela");
+        } catch (Exception e){
+            
+            JOptionPane.showMessageDialog(rootPane, e);
+            
+        }
+    }
+    
+    
+
+    
+    void preencher() {
+        
+        
+    //String sql = "Select l.id as ID, li.id as ID_do_livro, l.nome, li.autor, li.titulo from levantar l inner join livros li on l.id_livro = li.id inner join controle c on c.id_livro = l.id_livro where c.nrLev > 0 ";
+    String sql = "Select l.id as ID, l.id_livro as ID_do_Livro, li.titulo, l.nome, l.perfil, l.contacto from levantar l inner join livros li on li.id = l.id_livro";
+
+    try {
+        pst = conexao.prepareStatement(sql);
+            
+        rs = pst.executeQuery();
+
+        tblLivros.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e);
+        }
+    }
+    
+    void preencherC() {
+        
+    String c = cbCurso.getSelectedItem().toString();
+        
+    //String sql = "Select l.id, l.nome, li.autor, li.titulo from levantar l inner join livros li on l.id_livro = li.id where li.curso = ?";
+    String sql = "Select l.id as ID, l.id_livro as ID_do_Livro, li.titulo, l.nome, l.perfil, l.contacto from levantar l inner join livros li on li.id = l.id_livro where l.curso = ?";
+
+    try {
+        pst = conexao.prepareStatement(sql);
+            
+        pst.setString(1, c);
+            
+        rs = pst.executeQuery();
+
+        tblLivros.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e);
+        }
+    }
+    
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblLivros = new javax.swing.JTable();
+        jLabel10 = new javax.swing.JLabel();
+        cbCurso = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+
+        setBackground(new java.awt.Color(0, 153, 102));
+        setClosable(true);
+        setIconifiable(true);
+        setTitle("Compra de Equipamentos");
+        setPreferredSize(new java.awt.Dimension(566, 402));
+
+        jPanel1.setBackground(new java.awt.Color(0, 153, 102));
+        jPanel1.setForeground(new java.awt.Color(255, 204, 204));
+
+        jLabel1.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("PRATILEIRA - DEVOLUCAO");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+
+        tblLivros.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tblLivros.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblLivros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblLivrosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblLivros);
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 153, 102));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("Curso:");
+
+        cbCurso.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        cbCurso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EPM", "EM", "EI", "CAP", "CA" }));
+
+        jButton1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(0, 153, 102));
+        jButton1.setText("Verificar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(0, 153, 102));
+        jButton2.setText("Devolver");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(169, 169, 169))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(219, 219, 219))))))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbCurso)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        preencherC();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tblLivrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLivrosMouseClicked
+        // TODO add your handling code here:9        
+    }//GEN-LAST:event_tblLivrosMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        devolver();
+        preencher();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbCurso;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblLivros;
+    // End of variables declaration//GEN-END:variables
+}
